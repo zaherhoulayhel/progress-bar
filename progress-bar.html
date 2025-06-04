@@ -125,7 +125,7 @@
       const percent = Math.min(100, Math.max(0, (current / target) * 100));
       const filled = Math.round(percent / 10);
       const empty = 10 - filled;
-      const bar = '▓'.repeat(filled) + '░'.repeat(empty) + ` ${Math.round(percent)}%`;
+      const bar = '⬛'.repeat(filled) + '⬜'.repeat(empty) + ` ${Math.round(percent)}%`;
       const summary = `${current} / ${target}`;
 
       output.value = `${bar}\n${summary}`;
