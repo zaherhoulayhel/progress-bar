@@ -154,12 +154,22 @@
   <div id="toast">✅ Copied!</div>
 
   <script>
+    // Restore values on load
+    window.onload = () => {
+      const savedTarget = localStorage.getItem('target');
+      const savedCurrent = localStorage.getItem('current');
+      if (savedTarget !== null) document.getElementById('target').value = savedTarget;
+      if (savedCurrent !== null) document.getElementById('current').value = savedCurrent;
+    };
+
+    // Increment progress input
     function increment(amount) {
       const input = document.getElementById('current');
       let value = parseFloat(input.value) || 0;
       input.value = value + amount;
     }
 
+    // Generate the progress bar text and auto-copy
     function generateBar() {
       const target = parseFloat(document.getElementById('target').value);
       const current = parseFloat(document.getElementById('current').value);
@@ -170,9 +180,14 @@
         return;
       }
 
+      // Save current values to localStorage
+      localStorage.setItem('target', target);
+      localStorage.setItem('current', current);
+
       const percent = Math.max(0, (current / target) * 100);
       const filled = Math.min(10, Math.round(percent / 10));
       const empty = 10 - filled;
+
       const bar = '⬛'.repeat(filled) + '⬜'.repeat(empty) + ` ${Math.round(percent)}%`;
       const summary = `${current} / ${target}`;
 
@@ -181,6 +196,7 @@
       showToast();
     }
 
+    // Manual copy fallback
     function copyToClipboard() {
       const output = document.getElementById('output');
       output.select();
@@ -188,6 +204,7 @@
       showToast();
     }
 
+    // Show the toast notification
     function showToast() {
       const toast = document.getElementById('toast');
       toast.classList.add('show');
