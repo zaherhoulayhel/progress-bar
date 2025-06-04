@@ -24,6 +24,7 @@
     .top-section {
       padding: 1rem;
       text-align: center;
+      position: relative;
     }
 
     .app-name {
@@ -33,17 +34,22 @@
     }
 
     #output {
-      font-size: 1.5rem;
-      line-height: 1.8;
+      font-size: 1.75rem;
+      line-height: 2;
       white-space: pre-wrap;
-      background: #fff;
-      border-radius: 10px;
-      padding: 1rem;
-      border: 1px solid #ccc;
+      margin: 2rem auto 0;
+      padding: 0;
+      border: none;
+      background: none;
+      text-align: center;
     }
 
     .spacer {
       flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     .bottom-controls {
@@ -117,17 +123,18 @@
 
     #toast {
       position: fixed;
-      bottom: 5rem;
+      top: 4.5rem;
       left: 50%;
       transform: translateX(-50%);
       background: #323232;
       color: white;
-      padding: 0.75rem 1.25rem;
+      padding: 0.6rem 1rem;
       border-radius: 6px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s;
+      z-index: 1000;
     }
 
     #toast.show {
@@ -139,16 +146,23 @@
 <body>
   <div class="top-section">
     <div class="app-name">📊 Progress Counter</div>
+  </div>
+
+  <div class="spacer">
     <div id="output">⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0%
 0 / 0</div>
   </div>
 
-  <div class="spacer"></div>
-
   <div class="bottom-controls">
     <div class="input-group">
-      <input type="number" id="targetInput" placeholder="Target" oninput="updateTarget()">
-      <input type="number" id="currentInput" placeholder="Progress" oninput="updateCurrent()">
+      <div style="flex: 1 1 45%; display: flex; flex-direction: column;">
+        <label for="targetInput" style="margin-bottom: 0.25rem; font-size: 0.9rem;">🎯 Target</label>
+        <input type="number" id="targetInput" placeholder="Target" oninput="updateTarget()">
+      </div>
+      <div style="flex: 1 1 45%; display: flex; flex-direction: column;">
+        <label for="currentInput" style="margin-bottom: 0.25rem; font-size: 0.9rem;">📈 Progress</label>
+        <input type="number" id="currentInput" placeholder="Progress" oninput="updateCurrent()">
+      </div>
     </div>
 
     <div class="increments">
