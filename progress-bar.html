@@ -31,6 +31,11 @@
       font-size: 1.75rem;
       font-weight: bold;
       margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .app-name-emoji {
+      font-size: 3rem;
     }
 
     #output {
@@ -63,13 +68,23 @@
 
     .input-group {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      flex-direction: row;
+      gap: 1rem;
       margin-bottom: 1rem;
     }
 
-    .input-group input {
-      flex: 1 1 45%;
+    .input-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-wrapper label {
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .input-wrapper input {
       padding: 0.75rem;
       font-size: 1rem;
       border: 1px solid #ccc;
@@ -145,7 +160,10 @@
 
 <body>
   <div class="top-section">
-    <div class="app-name">📊 Progress Counter</div>
+    <div class="app-name">
+      <div class="app-name-emoji">📊</div>
+      <div>Progress Counter</div>
+    </div>
   </div>
 
   <div class="spacer">
@@ -155,13 +173,13 @@
 
   <div class="bottom-controls">
     <div class="input-group">
-      <div style="flex: 1 1 45%; display: flex; flex-direction: column;">
-        <label for="targetInput" style="margin-bottom: 0.25rem; font-size: 0.9rem;">🎯 Target</label>
-        <input type="number" id="targetInput" placeholder="Target" oninput="updateTarget()">
+      <div class="input-wrapper">
+        <label for="targetInput">🎯 Target</label>
+        <input type="number" id="targetInput" placeholder="e.g. 1000" oninput="updateTarget()">
       </div>
-      <div style="flex: 1 1 45%; display: flex; flex-direction: column;">
-        <label for="currentInput" style="margin-bottom: 0.25rem; font-size: 0.9rem;">📈 Progress</label>
-        <input type="number" id="currentInput" placeholder="Progress" oninput="updateCurrent()">
+      <div class="input-wrapper">
+        <label for="currentInput">📈 Progress</label>
+        <input type="number" id="currentInput" placeholder="e.g. 250" oninput="updateCurrent()">
       </div>
     </div>
 
