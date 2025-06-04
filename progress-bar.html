@@ -120,6 +120,8 @@
       if (isNaN(target) || isNaN(current) || target <= 0) {
         output.value = "Enter valid values.";
         return;
+
+      navigator.clipboard.writeText(output.value);
       }
 
       const percent = Math.max(0, (current / target) * 100);
