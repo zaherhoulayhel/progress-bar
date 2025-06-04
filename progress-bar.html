@@ -51,13 +51,14 @@
       border-radius: 6px;
     }
 
-    .increment-buttons {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
+      .increment-buttons {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.5rem;
+      }
+
 
     .increment-buttons button {
       flex: 1 1 22%;
@@ -138,12 +139,14 @@
   <label for="current">💰 Progress</label>
   <input type="number" id="current" placeholder="e.g. 250" />
 
-  <div class="increment-buttons">
-    <button onclick="increment(10)">+10</button>
-    <button onclick="increment(20)">+20</button>
-    <button onclick="increment(50)">+50</button>
-    <button onclick="increment(100)">+100</button>
-  </div>
+<div class="increment-buttons">
+  <button onclick="increment(5)">+5</button>
+  <button onclick="increment(10)">+10</button>
+  <button onclick="increment(20)">+20</button>
+  <button onclick="increment(50)">+50</button>
+  <button onclick="increment(100)">+100</button>
+</div>
+
 
   <button class="action" onclick="generateBar()">Generate</button>
 
