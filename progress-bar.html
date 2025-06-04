@@ -81,8 +81,34 @@
       background: #fff;
       line-height: 1.5;
     }
+
+    toast {
+      visibility: hidden;
+      min-width: 120px;
+      background-color: #323232;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.75em 1em;
+      position: fixed;
+      left: 50%;
+      bottom: 3rem;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s;
+    }
+    toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
   </style>
 </head>
+
+<div id="toast">Copied!</div>
+  
 <body>
   <h2>📊 Text Progress Bar</h2>
 
@@ -120,9 +146,10 @@
       if (isNaN(target) || isNaN(current) || target <= 0) {
         output.value = "Enter valid values.";
         return;
-
-      navigator.clipboard.writeText(output.value);
       }
+
+
+
 
       const percent = Math.max(0, (current / target) * 100);
       const filled = Math.min(10, Math.round(percent / 10));
@@ -131,8 +158,19 @@
       const summary = `${current} / ${target}`;
 
       output.value = `${bar}\n${summary}`;
+      navigator.clipboard.writeText(output.value);
+      showToast();
+
     }
 
+      function showToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+          }, 1800);
+      }
+    
     function copyToClipboard() {
       const output = document.getElementById('output');
       output.select();
