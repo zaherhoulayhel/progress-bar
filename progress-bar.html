@@ -4,10 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Progress Bar Generator</title>
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    /* Global layout and font */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #f9f9f9;
@@ -16,17 +15,21 @@
       margin: auto;
       color: #222;
     }
+
     h2 {
       text-align: center;
       margin-bottom: 2rem;
       font-size: 1.5rem;
     }
+
+    /* Labels and inputs */
     label {
       display: block;
       margin-bottom: 0.25rem;
       font-weight: 600;
       font-size: 1rem;
     }
+
     input {
       width: 100%;
       padding: 0.75rem;
@@ -35,6 +38,8 @@
       border: 1px solid #ccc;
       border-radius: 6px;
     }
+
+    /* Quick increment buttons */
     .increment-buttons {
       display: flex;
       justify-content: space-between;
@@ -42,6 +47,7 @@
       gap: 0.5rem;
       margin-bottom: 1.5rem;
     }
+
     .increment-buttons button {
       flex: 1 1 22%;
       padding: 0.6rem 0;
@@ -51,9 +57,12 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
     .increment-buttons button:active {
       background: #ccc;
     }
+
+    /* Main action buttons */
     button.action {
       width: 100%;
       padding: 0.8rem;
@@ -65,9 +74,12 @@
       margin-top: 1rem;
       cursor: pointer;
     }
+
     button.action:active {
       background: #0056b3;
     }
+
+    /* Output field */
     textarea {
       width: 100%;
       height: 4.5rem;
@@ -82,7 +94,8 @@
       line-height: 1.5;
     }
 
-    toast {
+    /* Toast message */
+    #toast {
       visibility: hidden;
       min-width: 120px;
       background-color: #323232;
@@ -99,25 +112,26 @@
       opacity: 0;
       transition: opacity 0.3s ease, visibility 0.3s;
     }
-    toast.show {
+
+    #toast.show {
       visibility: visible;
       opacity: 1;
     }
-
   </style>
 </head>
-
-<div id="toast">Copied!</div>
-  
 <body>
+
   <h2>📊 Text Progress Bar</h2>
 
+  <!-- Input for the target amount -->
   <label for="target">🎯 Target</label>
   <input type="number" id="target" placeholder="e.g. 1000" />
 
+  <!-- Input for the current amount -->
   <label for="current">💰 Progress</label>
   <input type="number" id="current" placeholder="e.g. 250" />
 
+  <!-- Quick increment buttons below current input -->
   <div class="increment-buttons">
     <button onclick="increment(10)">+10</button>
     <button onclick="increment(20)">+20</button>
@@ -125,19 +139,27 @@
     <button onclick="increment(100)">+100</button>
   </div>
 
+  <!-- Generate progress bar -->
   <button class="action" onclick="generateBar()">Generate</button>
 
+  <!-- Output area -->
   <textarea id="output" readonly placeholder="Progress bar will appear here..."></textarea>
 
+  <!-- Redundant copy button (optional use) -->
   <button class="action" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
 
+  <!-- Floating toast confirmation -->
+  <div id="toast">✅ Copied!</div>
+
   <script>
+    // Adds the increment amount to the current progress input
     function increment(amount) {
       const input = document.getElementById('current');
       let value = parseFloat(input.value) || 0;
       input.value = value + amount;
     }
 
+    // Generates the progress bar text output
     function generateBar() {
       const target = parseFloat(document.getElementById('target').value);
       const current = parseFloat(document.getElementById('current').value);
@@ -148,33 +170,38 @@
         return;
       }
 
-
-
-
       const percent = Math.max(0, (current / target) * 100);
       const filled = Math.min(10, Math.round(percent / 10));
       const empty = 10 - filled;
+
+      // Use black and white square characters
       const bar = '⬛'.repeat(filled) + '⬜'.repeat(empty) + ` ${Math.round(percent)}%`;
       const summary = `${current} / ${target}`;
 
       output.value = `${bar}\n${summary}`;
-      navigator.clipboard.writeText(output.value);
-      showToast();
 
+      // Automatically copy to clipboard
+      navigator.clipboard.writeText(output.value);
+
+      // Show floating toast
+      showToast();
     }
 
-      function showToast() {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => {
-          toast.classList.remove('show');
-          }, 1800);
-      }
-    
+    // Manual copy fallback button
     function copyToClipboard() {
       const output = document.getElementById('output');
       output.select();
       document.execCommand('copy');
+      showToast();
+    }
+
+    // Shows the "Copied!" toast
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1800);
     }
   </script>
 </body>
